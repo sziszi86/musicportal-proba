@@ -1,11 +1,6 @@
-/tmp
-/out-tsc
-
-/node_modules
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-/.pnp
-.pnp.js
-
-.vscode/*
+.claude/
+.next/
+node_modules/
+*.log
+.env*
+.DS_Store
