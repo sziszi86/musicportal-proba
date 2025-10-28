@@ -1,0 +1,8 @@
+{
+  "/api/albums/[id]/route": "app/api/albums/[id]/route.js",
+  "/albums/[id]/page": "app/albums/[id]/page.js",
+  "/albums/page": "app/albums/page.js",
+  "/page": "app/page.js",
+  "/reviews/[id]/page": "app/reviews/[id]/page.js",
+  "/reviews/page": "app/reviews/page.js"
+}
