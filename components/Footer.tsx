@@ -8,7 +8,7 @@ export function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-start">
           <div className="mb-6 md:mb-0">
             <h3 className="text-lg font-semibold text-primary mb-3">MusicPortal</h3>
-            <div className="flex flex-col space-y-2 text-sm">
+            <div className="flex flex-row space-x-6 text-sm">
               <Link 
                 href="/albums" 
                 className="text-muted-foreground hover:text-primary transition-colors"

@@ -38,6 +38,12 @@ export function AudioPlayer() {
       const audioElement = new Audio('/music.mp3')
       audioElement.loop = true
       audioElement.volume = volume / 100
+      
+      // Handle audio load errors silently
+      audioElement.addEventListener('error', () => {
+        console.warn('Audio file not found. Please add music.mp3 to the public directory.')
+      })
+      
       setAudio(audioElement)
     }
   }, [])
@@ -51,7 +57,9 @@ export function AudioPlayer() {
   useEffect(() => {
     if (audio) {
       if (isPlaying && currentTrack) {
-        audio.play().catch(console.error)
+        audio.play().catch((error) => {
+          console.warn('Audio playback failed. This is normal if no audio file is present.')
+        })
       } else {
         audio.pause()
       }
@@ -136,8 +144,8 @@ export function AudioPlayer() {
           </p>
         </div>
         
-        {/* Controls */}
-        <div className="flex items-center space-x-4">
+        {/* Controls and Volume */}
+        <div className="flex items-center justify-center space-x-6">
           <Button
             variant="ghost"
             size="sm"
@@ -170,19 +178,19 @@ export function AudioPlayer() {
           >
             <SkipForward className="w-5 h-5" />
           </Button>
-        </div>
-        
-        {/* Volume */}
-        <div className="flex items-center space-x-3">
-          <Volume2 className="w-4 h-4 text-white/70" />
-          <input
-            type="range"
-            min="0"
-            max="100"
-            value={volume}
-            onChange={handleVolumeChange}
-            className="w-20 h-1 bg-gray-600 rounded-lg appearance-none cursor-pointer slider"
-          />
+          
+          {/* Volume */}
+          <div className="flex items-center space-x-2 ml-4">
+            <Volume2 className="w-4 h-4 text-white/70" />
+            <input
+              type="range"
+              min="0"
+              max="100"
+              value={volume}
+              onChange={handleVolumeChange}
+              className="w-20 h-1 bg-gray-600 rounded-lg appearance-none cursor-pointer slider"
+            />
+          </div>
         </div>
       </div>
       
