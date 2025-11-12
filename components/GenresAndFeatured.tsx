@@ -78,7 +78,7 @@ export function GenresAndFeatured() {
                 </div>
                 <div className="flex-1">
                   <blockquote className="text-sm italic text-foreground leading-relaxed mb-3">
-                    "{artist.quote}"
+                    &ldquo;{artist.quote}&rdquo;
                   </blockquote>
                   <cite className="text-sm font-semibold text-primary">
                     {artist.name}

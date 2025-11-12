@@ -43,7 +43,7 @@ export function PopularAlbums() {
                 <div className="relative mb-3">
                   <div className="relative w-full h-24 sm:h-28 md:h-32 overflow-hidden rounded-lg">
                     <Image
-                      src={album.cover}
+                      src={album.coverImage}
                       alt={album.title}
                       fill
                       className="object-cover transition-transform group-hover:scale-105"

@@ -27,7 +27,7 @@ export function ReviewCard({ review }: ReviewCardProps) {
         <div className="flex items-start space-x-4 mb-4">
           <div className="relative w-16 h-16 flex-shrink-0">
             <Image
-              src={review.album.cover}
+              src={review.album.coverImage}
               alt={review.album.title}
               fill
               className="object-cover rounded-lg"
@@ -54,7 +54,7 @@ export function ReviewCard({ review }: ReviewCardProps) {
             <p className="text-sm text-muted-foreground">
               Review by <span className="font-medium">{review.author}</span>
             </p>
-            <p className="text-xs text-muted-foreground">{review.date}</p>
+            <p className="text-xs text-muted-foreground">{new Date(review.publishedAt).toLocaleDateString()}</p>
           </div>
           
           <p className="text-sm text-foreground line-clamp-4">

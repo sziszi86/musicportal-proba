@@ -3,12 +3,13 @@ import { ReviewsList } from './ReviewsList'
 import { ReviewsLoading } from './ReviewsLoading'
 
 interface ReviewsPageProps {
-  searchParams: {
+  searchParams: Promise<{
     page?: string
-  }
+  }>
 }
 
-export default function ReviewsPage({ searchParams }: ReviewsPageProps) {
+export default async function ReviewsPage({ searchParams }: ReviewsPageProps) {
+  const resolvedSearchParams = await searchParams
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8">
@@ -19,7 +20,7 @@ export default function ReviewsPage({ searchParams }: ReviewsPageProps) {
       </div>
       
       <Suspense fallback={<ReviewsLoading />}>
-        <ReviewsList searchParams={searchParams} />
+        <ReviewsList searchParams={resolvedSearchParams} />
       </Suspense>
     </div>
   )

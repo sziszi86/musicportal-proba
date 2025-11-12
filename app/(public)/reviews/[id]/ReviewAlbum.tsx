@@ -30,7 +30,7 @@ export function ReviewAlbum({ album }: ReviewAlbumProps) {
         <CardContent className="space-y-4">
           <div className="relative w-full h-64">
             <Image
-              src={album.cover}
+              src={album.coverImage}
               alt={album.title}
               fill
               className="object-cover rounded-lg"
@@ -52,7 +52,7 @@ export function ReviewAlbum({ album }: ReviewAlbumProps) {
               </div>
               <div className="flex items-center">
                 <Music className="w-4 h-4 mr-2" />
-                {album.trackCount} tracks • {album.totalDuration}
+                {album.tracks.length} tracks • {album.totalDuration}
               </div>
             </div>
           </div>

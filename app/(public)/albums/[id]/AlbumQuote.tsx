@@ -25,7 +25,7 @@ export function AlbumQuote() {
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center">
           <blockquote className="text-2xl lg:text-3xl font-light italic text-foreground mb-6 leading-relaxed">
-            "{quote.text}"
+            &ldquo;{quote.text}&rdquo;
           </blockquote>
           <cite className="text-lg text-muted-foreground font-medium">
             — {quote.author}

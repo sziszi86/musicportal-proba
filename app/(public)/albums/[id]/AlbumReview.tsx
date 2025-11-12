@@ -40,7 +40,7 @@ export function AlbumReview({ review }: AlbumReviewProps) {
           <CardContent className="space-y-4">
             <div>
               <p className="text-sm text-muted-foreground">
-                Review by <span className="font-medium">{review.author}</span> • {review.date}
+                Review by <span className="font-medium">{review.author}</span> • {new Date(review.publishedAt).toLocaleDateString()}
               </p>
             </div>
             

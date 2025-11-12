@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
-import authSlice from './authSlice'
-import audioSlice from './audioSlice'
+import audioReducer from './audioSlice'
+import authReducer from './authSlice'
 
 export const store = configureStore({
   reducer: {
-    auth: authSlice,
-    audio: audioSlice,
+    audio: audioReducer,
+    auth: authReducer,
   },
 })
 

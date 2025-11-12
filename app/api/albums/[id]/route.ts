@@ -3,10 +3,11 @@ import { generateAlbums } from '@/lib/faker'
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params
   const allAlbums = generateAlbums(100)
-  const album = allAlbums.find(a => a.id === params.id)
+  const album = allAlbums.find(a => a.id === id)
   
   if (!album) {
     return NextResponse.json(

@@ -45,7 +45,7 @@ export function LatestReviews() {
                 <div className="flex items-start space-x-3 mb-3">
                   <div className="relative w-12 h-12 flex-shrink-0">
                     <Image
-                      src={review.album.cover}
+                      src={review.album.coverImage}
                       alt={review.album.title}
                       fill
                       className="object-cover rounded-lg"

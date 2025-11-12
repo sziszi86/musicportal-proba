@@ -25,7 +25,7 @@ export function AlbumHeader({ album }: AlbumHeaderProps) {
         <div className="flex flex-col lg:flex-row items-center gap-8">
           <div className="relative w-80 h-80 flex-shrink-0">
             <Image
-              src={album.cover}
+              src={album.coverImage}
               alt={album.title}
               fill
               className="object-cover rounded-lg shadow-2xl"
@@ -48,7 +48,7 @@ export function AlbumHeader({ album }: AlbumHeaderProps) {
                   <Calendar className="w-4 h-4 mr-1" />
                   {album.releaseDate}
                 </div>
-                <div>{album.trackCount} tracks</div>
+                <div>{album.tracks.length} tracks</div>
                 <div>{album.totalDuration}</div>
               </div>
             </div>

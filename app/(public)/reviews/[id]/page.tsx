@@ -15,8 +15,18 @@ async function getReview(id: string) {
   return response.json()
 }
 
-export default async function ReviewPage({ params }: { params: { id: string } }) {
-  const review = await getReview(params.id)
+export async function generateStaticParams() {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/reviews`)
+  const reviews = await response.json()
+  
+  return reviews.slice(0, 10).map((review: any) => ({
+    id: review.id,
+  }))
+}
+
+export default async function ReviewPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
+  const review = await getReview(id)
   
   if (!review) {
     notFound()

@@ -10,13 +10,12 @@ export interface Album {
   id: string
   title: string
   artist: string
-  cover: string
-  genre: string
+  coverImage: string
   description: string
-  tracks: Track[]
-  trackCount: number
-  totalDuration: string
   releaseDate: string
+  genre: string
+  tracks: Track[]
+  totalDuration: string
 }
 
 export interface Review {
@@ -25,86 +24,63 @@ export interface Review {
   title: string
   author: string
   rating: number
-  summary: string
   content: string
-  date: string
+  publishedAt: string
+  summary: string
   album: Album
 }
 
-const genres = ['Pop', 'Jazz', 'Rock', 'Indie', 'Electronic', 'Hip Hop', 'Classical', 'Folk', 'R&B', 'Alternative']
+const genres = [
+  'Pop', 'Jazz', 'Rock', 'Indie', 'Electronic', 
+  'Hip Hop', 'Classical', 'Folk'
+]
 
-function generateTrack(): Track {
-  const minutes = faker.number.int({ min: 2, max: 6 })
-  const seconds = faker.number.int({ min: 0, max: 59 })
-  
-  return {
-    id: faker.string.uuid(),
-    title: faker.lorem.words(3),
-    duration: `${minutes}:${seconds.toString().padStart(2, '0')}`,
-  }
-}
-
-function calculateTotalDuration(tracks: Track[]): string {
-  let totalSeconds = 0
-  
-  tracks.forEach(track => {
-    const [minutes, seconds] = track.duration.split(':').map(Number)
-    totalSeconds += minutes * 60 + seconds
-  })
-  
-  const hours = Math.floor(totalSeconds / 3600)
-  const minutes = Math.floor((totalSeconds % 3600) / 60)
-  const remainingSeconds = totalSeconds % 60
-  
-  if (hours > 0) {
-    return `${hours}:${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`
-  }
-  return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`
-}
-
-export function generateAlbum(): Album {
-  const trackCount = faker.number.int({ min: 8, max: 15 })
-  const tracks = Array.from({ length: trackCount }, generateTrack)
-  
-  return {
-    id: faker.string.uuid(),
-    title: faker.commerce.productName(),
-    artist: faker.person.fullName(),
-    cover: `https://picsum.photos/seed/${faker.string.uuid()}/300/300`,
-    genre: faker.helpers.arrayElement(genres),
-    description: faker.lorem.paragraphs(2),
-    tracks,
-    trackCount,
-    totalDuration: calculateTotalDuration(tracks),
-    releaseDate: faker.date.past({ years: 5 }).toISOString().split('T')[0],
-  }
-}
-
-export function generateReview(album?: Album): Review {
-  const reviewAlbum = album || generateAlbum()
-  
-  return {
-    id: reviewAlbum.id,
-    albumId: reviewAlbum.id,
-    title: `Review: ${reviewAlbum.title}`,
-    author: faker.person.fullName(),
-    rating: faker.number.int({ min: 1, max: 5 }),
-    summary: faker.lorem.paragraph(),
-    content: faker.lorem.paragraphs(5),
-    date: faker.date.past({ years: 1 }).toISOString().split('T')[0],
-    album: reviewAlbum,
-  }
-}
-
-export function generateAlbums(count: number): Album[] {
+export function generateTracks(count: number = 10): Track[] {
   faker.seed(12345)
-  return Array.from({ length: count }, generateAlbum)
+  return Array.from({ length: count }, (_, index) => ({
+    id: `track-${index + 1}`,
+    title: faker.music.songName(),
+    duration: `${faker.number.int({ min: 2, max: 6 })}:${faker.number.int({ min: 10, max: 59 }).toString().padStart(2, '0')}`
+  }))
 }
 
-export function generateReviews(count: number, albums?: Album[]): Review[] {
-  faker.seed(54321)
-  if (albums) {
-    return albums.slice(0, count).map(album => generateReview(album))
-  }
-  return Array.from({ length: count }, () => generateReview())
+export function generateAlbums(count: number = 100): Album[] {
+  faker.seed(12345)
+  return Array.from({ length: count }, (_, index) => {
+    const tracks = generateTracks(faker.number.int({ min: 8, max: 15 }))
+    const totalMinutes = tracks.reduce((acc, track) => {
+      const [min, sec] = track.duration.split(':').map(Number)
+      return acc + min + (sec / 60)
+    }, 0)
+    
+    return {
+      id: `album-${index + 1}`,
+      title: `${faker.music.genre()} ${faker.word.words(2)}`,
+      artist: faker.person.fullName(),
+      coverImage: `https://picsum.photos/seed/album-${index + 1}/400/400`,
+      description: faker.lorem.paragraphs(2),
+      releaseDate: faker.date.past({ years: 5 }).toISOString().split('T')[0],
+      genre: faker.helpers.arrayElement(genres),
+      tracks,
+      totalDuration: `${Math.floor(totalMinutes)}:${Math.floor((totalMinutes % 1) * 60).toString().padStart(2, '0')}`
+    }
+  })
+}
+
+export function generateReviews(count: number = 100, albums: Album[]): Review[] {
+  faker.seed(12345)
+  return Array.from({ length: count }, (_, index) => {
+    const album = albums[index] || albums[0]
+    return {
+      id: `album-${index + 1}`,
+      albumId: album.id,
+      title: `Review: ${album.title}`,
+      author: faker.person.fullName(),
+      rating: faker.number.int({ min: 1, max: 5 }),
+      content: faker.lorem.paragraphs(5),
+      publishedAt: faker.date.past({ years: 1 }).toISOString(),
+      summary: faker.lorem.paragraph(),
+      album
+    }
+  })
 }

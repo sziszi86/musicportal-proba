@@ -4,13 +4,14 @@ import { AlbumsLoading } from './AlbumsLoading'
 import { NewsletterSignup } from '@/components/NewsletterSignup'
 
 interface AlbumsPageProps {
-  searchParams: {
+  searchParams: Promise<{
     page?: string
     genre?: string
-  }
+  }>
 }
 
-export default function AlbumsPage({ searchParams }: AlbumsPageProps) {
+export default async function AlbumsPage({ searchParams }: AlbumsPageProps) {
+  const resolvedSearchParams = await searchParams
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8">
@@ -21,7 +22,7 @@ export default function AlbumsPage({ searchParams }: AlbumsPageProps) {
       </div>
       
       <Suspense fallback={<AlbumsLoading />}>
-        <AlbumsList searchParams={searchParams} />
+        <AlbumsList searchParams={resolvedSearchParams} />
       </Suspense>
       
       <NewsletterSignup />

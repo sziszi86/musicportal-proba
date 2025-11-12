@@ -51,7 +51,7 @@ export function NewsletterSignup() {
                   Thank you for subscribing!
                 </h3>
                 <p className="text-xs text-muted-foreground">
-                  You'll receive our latest music news and reviews.
+                  You&rsquo;ll receive our latest music news and reviews.
                 </p>
               </div>
             </div>

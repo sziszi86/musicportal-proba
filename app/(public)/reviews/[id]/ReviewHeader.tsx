@@ -48,7 +48,7 @@ export function ReviewHeader({ review }: ReviewHeaderProps) {
             </div>
             <div className="flex items-center">
               <Calendar className="w-4 h-4 mr-1" />
-              {review.date}
+              {new Date(review.publishedAt).toLocaleDateString()}
             </div>
           </div>
         </div>

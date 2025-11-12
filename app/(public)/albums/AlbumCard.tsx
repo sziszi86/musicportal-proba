@@ -27,7 +27,7 @@ export function AlbumCard({ album }: AlbumCardProps) {
         <div className="relative mb-4">
           <div className="relative w-full h-48 overflow-hidden rounded-lg">
             <Image
-              src={album.cover}
+              src={album.coverImage}
               alt={album.title}
               fill
               className="object-cover transition-transform group-hover:scale-105"
@@ -57,7 +57,7 @@ export function AlbumCard({ album }: AlbumCardProps) {
               {album.genre}
             </Badge>
             <p className="text-xs text-muted-foreground">
-              {album.trackCount} tracks • {album.totalDuration}
+              {album.tracks.length} tracks • {album.totalDuration}
             </p>
           </div>
           <p className="text-xs text-muted-foreground line-clamp-2">

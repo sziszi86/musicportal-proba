@@ -11,7 +11,12 @@ export function Header() {
   const dispatch = useDispatch()
 
   const handleLogin = () => {
-    dispatch(login({ email: 'admin@musicportal.com', password: 'password' }))
+    dispatch(login({ 
+      id: '1',
+      name: 'Admin User',
+      email: 'admin@musicportal.com',
+      role: 'admin'
+    }))
   }
 
   const handleLogout = () => {

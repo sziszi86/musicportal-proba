@@ -52,7 +52,7 @@ export function FeaturedArtist() {
           </div>
           
           <blockquote className="text-2xl lg:text-3xl font-light italic text-foreground mb-6 leading-relaxed">
-            "{artist.quote}"
+            &ldquo;{artist.quote}&rdquo;
           </blockquote>
           
           <cite className="text-lg font-semibold text-primary">
